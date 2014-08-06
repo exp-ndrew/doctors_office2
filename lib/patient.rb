@@ -26,7 +26,6 @@ class Patient
   end
 
   def doctors
-    # call join table, return which doctors are assigned to this patient
     found = []
     providers = DB.exec("SELECT * FROM doctor_patient WHERE patient_id = '#{@id}';")
     providers.each do |provider|
@@ -56,6 +55,7 @@ class Patient
     patients
   end
 
-
-
+  def self.search_by_patient_name(patient_name)
+    Patient.all.find { |patient| patient.name == patient_name }
+  end
 end

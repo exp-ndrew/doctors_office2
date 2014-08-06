@@ -28,15 +28,6 @@ describe Patient do
     expect(Patient.all[0].id).to eq patient.id
   end
 
-  # it 'assigns a patient to a doctor' do
-  #   patient = Patient.new("Billy", '1995-08-06', 2)
-  #   doctor = Doctor.new("Tom", 2, 2)
-  #   patient.save
-  #   doctor.save
-  #   patient.assign_to("Tom")
-  #   expect(patient.doctor).to eq doctor.name
-  # end
-
   describe ".all" do
     it 'returns all patients on .all' do
       patient1 = Patient.new("Billy", '1995-08-06', 1)
@@ -44,6 +35,16 @@ describe Patient do
       patient1.save
       patient2.save
       expect(Patient.all).to eq [patient1, patient2]
+    end
+  end
+
+  describe '.search_by_patient_name' do
+    it 'should return a patient object for a given name' do
+      patient1 = Patient.new("Billy", '1995-08-06', 1)
+      patient2 = Patient.new("Bobby", '1996-08-06', 2)
+      patient1.save
+      patient2.save
+      expect(Patient.search_by_patient_name("Billy")).to eq patient1
     end
   end
 

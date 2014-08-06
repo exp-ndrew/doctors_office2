@@ -18,6 +18,28 @@ class Doctor
     self.name == another_doctor.name
   end
 
+  def assign_to(patient_name)
+    patient = Patient.search_by_patient_name(patient_name)
+    DB.exec("INSERT INTO doctor_patient (doctor_id, patient_id) VALUES (#{@id}, #{patient.id});")
+  end
+
+  def patients
+    found = []
+    patients = DB.exec("SELECT * FROM doctor_patient WHERE doctor_id = '#{@id}';")
+    patients.each do |patient|
+      patient_id = patient['patient_id']
+      matches_in_patient_table = DB.exec("SELECT * FROM patient WHERE id = '#{patient_id}'")
+      matches_in_patient_table.each do |match|
+        name = match["name"]
+        date_of_birth = match["date_of_birth"].to_i
+        insurance_id = match["insurance_id"].to_i
+        id = match["id"].to_i
+        found << Patient.new(name, date_of_birth, insurance_id, id)
+      end
+    end
+    found
+  end
+
   def self.all
     from_db = DB.exec("SELECT * FROM doctor")
     doctors = []
