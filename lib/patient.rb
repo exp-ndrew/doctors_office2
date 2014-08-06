@@ -1,3 +1,5 @@
+require 'doctor'
+
 class Patient
 
   attr_accessor :name, :date_of_birth, :insurance_id, :id
@@ -19,17 +21,27 @@ class Patient
   end
 
   def assign_to(doctor_name)
-    # doctor_id = return id WHERE name = doctor_name
-    # use this ID as doctor_id in a new row on doctor_patient
-    # INSERT INTO doctor_patient (doctor_id, patient_id) VALUES (#{doctor_id}, #{@id});
-
-    # makes an entry on the join table with the doctor_id and the patient_id
-    DB.exec()
+    doctor = Doctor.search_by_doctor_name(doctor_name)
+    DB.exec("INSERT INTO doctor_patient (doctor_id, patient_id) VALUES (#{doctor.id}, #{@id});")
   end
 
-  # def doctor
-  #   # call join table, return which doctors are assigned to this patient
-  # end
+  def doctors
+    # call join table, return which doctors are assigned to this patient
+    found = []
+    providers = DB.exec("SELECT * FROM doctor_patient WHERE patient_id = '#{@id}';")
+    providers.each do |provider|
+      provider_id = provider['doctor_id']
+      matches_in_doctor_table = DB.exec("SELECT * FROM doctor WHERE id = '#{provider_id}'")
+      matches_in_doctor_table.each do |match|
+        name = match["name"]
+        insurance_id = match["insurance_id"].to_i
+        specialty_id = match["specialty_id"].to_i
+        id = match["id"].to_i
+        found << Doctor.new(name, insurance_id, specialty_id, id)
+      end
+    end
+    found
+  end
 
   def self.all
     from_db = DB.exec("SELECT * FROM patient")

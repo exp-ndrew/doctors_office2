@@ -46,4 +46,15 @@ describe Patient do
       expect(Patient.all).to eq [patient1, patient2]
     end
   end
+
+  describe "#assign_to" do
+    it 'assigns a doctor to a patient' do
+      patient = Patient.new("Billy", '1995-08-06', 1)
+      patient.save
+      doctor = Doctor.new("Tom", 2, 2)
+      doctor.save
+      patient.assign_to("Tom")
+      expect(patient.doctors).to eq [doctor]
+    end
+  end
 end
