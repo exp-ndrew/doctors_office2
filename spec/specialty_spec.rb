@@ -35,5 +35,21 @@ describe 'Specialty' do
     specialty2.save
     expect(specialty1).to eq specialty2
   end
+
+  describe '.doctors' do
+    it 'returns doctors for a given specialty' do
+      specialty1 = Specialty.new("Pediatrics")
+      specialty2 = Specialty.new("Geriatrics")
+      doctor1 = Doctor.new("Tom", 1, 1)
+      doctor2 = Doctor.new("Susan", 2, 2)
+      doctor1.save
+      doctor2.save
+      specialty1.save
+      puts specialty1.id
+      specialty2.save
+      puts specialty2.id
+      expect(Specialty.doctors("Pediatrics")).to eq [doctor1]
+    end
+  end
 end
 

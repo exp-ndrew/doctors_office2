@@ -26,4 +26,20 @@ class Specialty
     end
     specialties
   end
+
+  def self.doctors(specialty)
+    found = DB.exec("SELECT * FROM specialty WHERE specialty = '#{specialty}'")
+    found.each { |sp| @the_id = sp['id'].to_i }
+    doctors_with_specialty = DB.exec("SELECT * FROM doctor WHERE specialty_id = #{@the_id}")
+    doctors_with_specialty_array = []
+    doctors_with_specialty.each do |doctor|
+      name = doctor['name']
+      insurance_id = doctor['insurance_id'].to_i
+      specialty_id = doctor['specialty_id'].to_i
+      id = doctor['id'].to_i
+      doctors_with_specialty_array << Doctor.new(name, insurance_id, specialty_id, id)
+    end
+    doctors_with_specialty_array
+  end
+
 end
