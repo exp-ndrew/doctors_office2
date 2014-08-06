@@ -18,14 +18,18 @@ class Patient
     self.name == another_patient.name
   end
 
-  def assign_to(doctor_id)
+  def assign_to(doctor_name)
+    # doctor_id = return id WHERE name = doctor_name
+    # use this ID as doctor_id in a new row on doctor_patient
+    # INSERT INTO doctor_patient (doctor_id, patient_id) VALUES (#{doctor_id}, #{@id});
+
     # makes an entry on the join table with the doctor_id and the patient_id
     DB.exec()
   end
 
-  def doctor
-    # call join table, return which doctors are assigned to this patient
-  end
+  # def doctor
+  #   # call join table, return which doctors are assigned to this patient
+  # end
 
   def self.all
     from_db = DB.exec("SELECT * FROM patient")

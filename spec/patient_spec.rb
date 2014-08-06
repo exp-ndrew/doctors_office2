@@ -27,13 +27,14 @@ describe Patient do
     patient.save
     expect(Patient.all[0].id).to eq patient.id
   end
+
   # it 'assigns a patient to a doctor' do
   #   patient = Patient.new("Billy", '1995-08-06', 2)
   #   doctor = Doctor.new("Tom", 2, 2)
   #   patient.save
   #   doctor.save
   #   patient.assign_to("Tom")
-  #   expect(patient.doctor).to eq doctor.doctor_id
+  #   expect(patient.doctor).to eq doctor.name
   # end
 
   describe ".all" do

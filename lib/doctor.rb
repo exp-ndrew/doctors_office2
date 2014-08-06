@@ -14,6 +14,10 @@ class Doctor
     @id = from_db.first['id'].to_i
   end
 
+  def ==(another_doctor)
+    self.name == another_doctor.name
+  end
+
   def self.all
     from_db = DB.exec("SELECT * FROM doctor")
     doctors = []
@@ -27,7 +31,7 @@ class Doctor
     doctors
   end
 
-  def ==(another_doctor)
-    self.name == another_doctor.name
+  def self.search_by_doctor_name(doctor_name)
+    Doctor.all.find { |doctor| doctor.name == doctor_name}
   end
 end
