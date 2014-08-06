@@ -16,6 +16,15 @@ class Patient
     self.name == another_patient.name
   end
 
+  def assign_to(doctor_id)
+    # makes an entry on the join table with the doctor_id and the patient_id
+    DB.exec()
+  end
+
+  def doctor
+    # call join table, return which doctors are assigned to this patient
+  end
+
   def self.all
     from_db = DB.exec("SELECT * FROM patient")
     patients = []
@@ -27,5 +36,7 @@ class Patient
     end
     patients
   end
+
+
 
 end

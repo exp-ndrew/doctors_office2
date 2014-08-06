@@ -15,6 +15,12 @@ describe Doctor do
     expect(Doctor.all).to eq [doctor]
   end
 
+  it 'returns the doctors id' do
+    doctor = Doctor.new("Tom", 1, 1)
+    doctor.save
+    expect(Doctor.all[0].id).to eq doctor.id
+  end
+
   describe ".all" do
     it 'returns all doctors on Doctor.all method' do
       doctor1 = Doctor.new("Tom", 1, 1)

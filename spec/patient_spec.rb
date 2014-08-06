@@ -2,6 +2,7 @@ require 'pg'
 require 'rspec'
 require 'spec_helper'
 require 'patient'
+require 'doctor'
 
 describe Patient do
   it 'is initialized with name, dob and insurance id' do
@@ -20,6 +21,15 @@ describe Patient do
     patient2 = Patient.new("Billy", '1995-08-06', 1)
     expect(patient2).to eq patient1
   end
+
+  # it 'assigns a patient to a doctor' do
+  #   patient = Patient.new("Billy", '1995-08-06', 2)
+  #   doctor = Doctor.new("Tom", 2, 2)
+  #   patient.save
+  #   doctor.save
+  #   patient.assign_to("Tom")
+  #   expect(patient.doctor).to eq doctor.doctor_id
+  # end
 
   describe ".all" do
     it 'returns all patients on .all' do
