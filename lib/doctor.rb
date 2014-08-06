@@ -27,6 +27,6 @@ class Doctor
   end
 
   def ==(another_doctor)
-    self.name = another_doctor
+    self.name == another_doctor.name
   end
 end
