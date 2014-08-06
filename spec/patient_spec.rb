@@ -22,6 +22,11 @@ describe Patient do
     expect(patient2).to eq patient1
   end
 
+  it 'returns the patient id' do
+    patient = Patient.new("Billy", '1995-08-06', 1)
+    patient.save
+    expect(Patient.all[0].id).to eq patient.id
+  end
   # it 'assigns a patient to a doctor' do
   #   patient = Patient.new("Billy", '1995-08-06', 2)
   #   doctor = Doctor.new("Tom", 2, 2)
